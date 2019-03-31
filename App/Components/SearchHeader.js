@@ -1,5 +1,8 @@
 import React from 'react'
 import { View, TextInput } from 'react-native'
+import { connect } from 'react-redux'
+
+import { handleChange } from '../Store/Reducers/Search'
 
 //need to make a random opponent generator
 //need to add an icon next to text input
@@ -8,20 +11,17 @@ import { View, TextInput } from 'react-native'
 //use the navigation prop to get the title for the header based on the screen?
 //food for thought
 class SearchHeader extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      search: ''
-    }
+
+  handleChange = search => {
+    this.props.handleChange(search)
   }
 
-  handleTextChange = search => this.setState({ search })
   render(){
     return (
       <View>
         <TextInput 
-          onChangeText={this.handleTextChange} 
-          value={this.state.search} 
+          onChangeText={this.handleChange} 
+          value={this.props.search} 
           placeholder='Find a friend'
           placeholderTextColor='gray'
         />
@@ -30,4 +30,16 @@ class SearchHeader extends React.Component{
   }
 }
 
-export default SearchHeader
+const mapStateToProps = ({ search }) => {
+  return {
+    search  
+  }
+}
+
+const mapDisatchToProps = dispatch => {
+  return {
+    handleChange: search => dispatch(handleChange(search))
+  }
+}
+
+export default connect(mapStateToProps, mapDisatchToProps)(SearchHeader)
