@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { initialLoad } from '../Store/Reducers/Players'
+import { initialLoad, battleUser } from '../Store/Reducers/Players'
 import fakeData from '../Utility/fakeData'
 
 import SearchHeader from '../Components/SearchHeader'
@@ -10,8 +10,6 @@ import OpponentSearch from '../Components/OpponentSearch'
 
 //Shows a list of the users' current matches
 //has the ability to add a new match
-//Note to self: shou
-
 
 class Challenge extends React.Component{
   static navigationOptions = {
@@ -24,11 +22,22 @@ class Challenge extends React.Component{
 
   isSearching = () => this.props.search? true : false   //checks if there's user input in the search bar. If there is then render the opponent search component else we just show players they're currently challenging
 
+  challengeUser = userId => {
+    this.props.battleUser(userId) //changes the state as well as make network call if this was hooked up to server, will be promise chain (do a loading animation)
+    this.props.navigation.navigate('BattleView', { 
+      userId
+    })
+  }
+  
   render(){
     if(this.isSearching()){
-      return <OpponentSearch />
+      return (
+        <OpponentSearch battleUser={this.challengeUser}/>
+      )
     } else {
-      return <CurrenlyChallenging />
+      return (
+        <CurrenlyChallenging battleUser={this.challengeUser} />
+      )
     }
   }
 }
@@ -42,7 +51,8 @@ const mapStateToProps = ({ search }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadChallenges: users => dispatch(initialLoad(users))
+    loadChallenges: users => dispatch(initialLoad(users)),
+    battleUser: userId => dispatch(battleUser(userId))
   }
 }
 

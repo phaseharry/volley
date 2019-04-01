@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
-styles
+import { sortAlphabetically, userSearch } from '../Utility/utilityfncs'
+
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -30,11 +31,14 @@ class OpponentSearch extends React.Component{
   keyExtractor = item => `${item.id}` //used for FlatList key values (turns the id which is a Number type in a String to remove error)
 
   userItemRenderer = item => { //used to render each user's item (avatar icon and name)
+    const { battleUser } = this.props
     return (
-      <View style={styles.userItem}>
-        <Image style={styles.avatarIcon} source={{ uri: `${item.avatar}` }}/>
-        <Text key={item.id}>{`${item.firstName} ${item.lastName}`}</Text>
-      </View>
+      <TouchableOpacity onPress={() => battleUser(item.id)}>
+        <View style={styles.userItem}>
+          <Image style={styles.avatarIcon} source={{ uri: `${item.avatar}` }}/>
+          <Text key={item.id}>{`${item.firstName} ${item.lastName}`}</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 
@@ -57,23 +61,8 @@ class OpponentSearch extends React.Component{
 
 //redux mapping into component
 const mapStateToProps = ({search, players}) => {
-  const searchQuery = new RegExp(search, 'i')  
   return {
-    potentialOpponents: players.filter(player => {                //filters out user based on search parameters and sorts through it by first name (definitely need to optimize)
-      if(searchQuery.test(player.firstName) || searchQuery.test(player.lastName)){
-        return true 
-      } else {
-        return false
-      }
-    }).sort((p1, p2) => {
-      if(p1.firstName > p2.firstName){
-        return 1
-      } else if(p1.firstName < p2.firstName){
-        return -1
-      } else {
-        return 0
-      }
-    })  
+    potentialOpponents: sortAlphabetically(userSearch(search, players)) //userSearch is passed in our search string and players to filter out and passed into to sortAlphabetically to sort through the queried users
   }
 }
 

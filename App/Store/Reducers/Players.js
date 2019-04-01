@@ -1,12 +1,12 @@
 //action type
-const NEW_CHALLEGE = 'NEW_CHALLENGE'
+const BATTLE_USER = 'BATTLE_USER'
 const INITIAL_LOAD = 'INITIAL_LOAD'
 
 //action creator
-export const newChallenge = user => {
+export const battleUser = userId => {
   return {
-    type: NEW_CHALLEGE,
-    user
+    type: BATTLE_USER,
+    userId
   }
 }
 
@@ -24,8 +24,13 @@ const initialState = [] //represents an array of players
 
 const playersReducer = (state = initialState, action) => {
   switch(action.type){
-    case NEW_CHALLEGE:
-      return [...state, action.user]
+    case BATTLE_USER:
+      return state.map(user => {
+        if(user.id === action.userId){
+          user.challenging = true
+        }
+        return user
+      })
     case INITIAL_LOAD:
       return [...action.users]
     default:

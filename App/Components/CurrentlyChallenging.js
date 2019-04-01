@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
 
+import { sortAlphabetically, sortChallenges } from '../Utility/utilityfncs'
+
 //Shows a list of the users' current matches
 //has the ability to add a new match
 
@@ -60,15 +62,7 @@ class CurrentlyChallenging extends React.Component{
 //redux mapping into component
 const mapStateToProps = state => {  
   return {
-    challenging: state.players.filter(player => player.challenging).sort((p1, p2) => { //filters out all the players we're currently challenging and sort alphabetically
-      if(p1.firstName > p2.firstName){
-        return 1
-      } else if(p1.firstName < p2.firstName){
-        return -1
-      } else {
-        return 0
-      }
-    })  
+    challenging: sortAlphabetically(sortChallenges(state.players))
   }
 }
 
