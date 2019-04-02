@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import { sortAlphabetically, sortChallenges } from '../Utility/utilityfncs'
@@ -9,10 +9,6 @@ import { sortAlphabetically, sortChallenges } from '../Utility/utilityfncs'
 
 //styles
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    flexDirection: 'column'
-  },
   userItem: {
     padding: 10,
     height: 44,
@@ -25,36 +21,40 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 40/2,
   },
+  textContainer: {
+    paddingLeft: 10,
+    paddingTop: 7
+  },
   textStyle: {
-    fontSize: 18,
+    fontSize: 15
   }
 })
 
 class CurrentlyChallenging extends React.Component{
 
-  keyExtractor = item => `${item.id}` //used for FlatList key values (turns the id which is a Number type in a String to remove error)
-
   userItemRenderer = item => { //used to render each user's item (avatar icon and name)
+    const { battleUser } = this.props
     return (
-      <View style={styles.userItem}>
-        <Image style={styles.avatarIcon} source={{ uri: `${item.avatar}` }}/>
-        <Text key={item.id}>{`${item.firstName} ${item.lastName}`}</Text>
-      </View>
+      <TouchableOpacity onPress={() => battleUser(item.id)}>
+        <View style={styles.userItem}>
+          <Image style={styles.avatarIcon} source={{ uri: `${item.avatar}` }}/>
+          <View style={styles.textContainer}>
+            <Text key={item.id} style={styles.textStyle}>{`${item.firstName} ${item.lastName}`}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     )
   }
 
   render(){
     const { challenging } = this.props
     return (
-      <View style={styles.mainContainer}>
         <FlatList
           data={challenging}
-          keyExtractor={this.keyExtractor}
-          renderItem={({item}) => this.userItemRenderer(item)
-          }
+          keyExtractor={item => `${item.id}`}
+          renderItem={({item}) => this.userItemRenderer(item)}
         >
         </FlatList>
-      </View>
     )
   }
 }

@@ -1,8 +1,12 @@
 import React from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, TouchableOpacity, Text } from 'react-native'
+import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 
 import { handleChange } from '../Store/Reducers/Search'
+import { battleUser } from '../Store/Reducers/Players'
+import { resetSearch } from '../Store/Reducers/Search'
+import { randomUser } from '../Utility/utilityfncs'
 
 //need to make a random opponent generator
 //need to add an icon next to text input
@@ -12,34 +16,51 @@ import { handleChange } from '../Store/Reducers/Search'
 //food for thought
 class SearchHeader extends React.Component{
 
-  handleChange = search => {
-    this.props.handleChange(search)
+  randomOpponentBattle = () => {
+    const user = randomUser(this.props.players)
+    console.log(user)
+    return this.challengeUser(user.id)       //returning it just incase this might be asynchronous in the future
+  }
+
+  challengeUser = userId => {
+    this.props.battleUser(userId) 
+    this.props.navigation.navigate('BattleView', { 
+      userId
+    })
+    this.props.resetSearch()
   }
 
   render(){
+    const { search, handleChange } = this.props
     return (
       <View>
         <TextInput 
-          onChangeText={this.handleChange} 
-          value={this.props.search} 
+          onChangeText={text => handleChange(text)} 
+          value={search} 
           placeholder='Find a friend'
           placeholderTextColor='gray'
         />
+        <TouchableOpacity onPress={this.randomOpponentBattle}>
+          <Text>Random Opponent</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
 
-const mapStateToProps = ({ search }) => {
+const mapStateToProps = ({ search, players }) => {
   return {
+    players,
     search  
   }
 }
 
 const mapDisatchToProps = dispatch => {
   return {
-    handleChange: search => dispatch(handleChange(search))
+    handleChange: search => dispatch(handleChange(search)),
+    battleUser: user => dispatch(battleUser(user)),
+    resetSearch: () => dispatch(resetSearch())
   }
 }
 
-export default connect(mapStateToProps, mapDisatchToProps)(SearchHeader)
+export default withNavigation(connect(mapStateToProps, mapDisatchToProps)(SearchHeader))

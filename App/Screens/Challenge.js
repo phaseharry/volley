@@ -1,19 +1,37 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Dimensions, StyleSheet, View } from 'react-native'
 
 import { initialLoad, battleUser } from '../Store/Reducers/Players'
+import { resetSearch } from '../Store/Reducers/Search'
 import fakeData from '../Utility/fakeData'
 
 import SearchHeader from '../Components/SearchHeader'
 import CurrenlyChallenging from '../Components/CurrentlyChallenging'
 import OpponentSearch from '../Components/OpponentSearch'
 
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 3,
+  },
+  filler: {
+    // height: 100,
+    backgroundColor: 'skyblue'
+  }
+})
+
 //Shows a list of the users' current matches
 //has the ability to add a new match
 
 class Challenge extends React.Component{
+
   static navigationOptions = {
-    headerTitle: <SearchHeader/>
+    headerTitle: <SearchHeader/>, 
+    headerStyle: {
+      height: Dimensions.get('window').height * 0.14
+    }
   }
 
   componentDidMount(){
@@ -27,18 +45,16 @@ class Challenge extends React.Component{
     this.props.navigation.navigate('BattleView', { 
       userId
     })
+    this.props.resetSearch()
   }
   
   render(){
-    if(this.isSearching()){
-      return (
-        <OpponentSearch battleUser={this.challengeUser}/>
-      )
-    } else {
-      return (
-        <CurrenlyChallenging battleUser={this.challengeUser} />
-      )
-    }
+    return (
+      <View style={styles.mainContainer}>
+        {this.isSearching()? <OpponentSearch battleUser={this.challengeUser}/> : <CurrenlyChallenging battleUser={this.challengeUser}/>}
+        <View style={styles.filler}></View>
+      </View>
+    )
   }
 }
 
@@ -52,7 +68,8 @@ const mapStateToProps = ({ search }) => {
 const mapDispatchToProps = dispatch => {
   return {
     loadChallenges: users => dispatch(initialLoad(users)),
-    battleUser: userId => dispatch(battleUser(userId))
+    battleUser: userId => dispatch(battleUser(userId)),
+    resetSearch: () => dispatch(resetSearch())
   }
 }
 

@@ -5,10 +5,6 @@ import { connect } from 'react-redux'
 import { sortAlphabetically, userSearch } from '../Utility/utilityfncs'
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    flexDirection: 'column'
-  },
   userItem: {
     padding: 10,
     height: 44,
@@ -21,14 +17,16 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 40/2,
   },
+  textContainer: {
+    paddingLeft: 10,
+    paddingTop: 7
+  },
   textStyle: {
-    fontSize: 18,
+    fontSize: 15
   }
 })
 
 class OpponentSearch extends React.Component{
-
-  keyExtractor = item => `${item.id}` //used for FlatList key values (turns the id which is a Number type in a String to remove error)
 
   userItemRenderer = item => { //used to render each user's item (avatar icon and name)
     const { battleUser } = this.props
@@ -36,7 +34,9 @@ class OpponentSearch extends React.Component{
       <TouchableOpacity onPress={() => battleUser(item.id)}>
         <View style={styles.userItem}>
           <Image style={styles.avatarIcon} source={{ uri: `${item.avatar}` }}/>
-          <Text key={item.id}>{`${item.firstName} ${item.lastName}`}</Text>
+          <View style={styles.textContainer}>
+            <Text key={item.id}>{`${item.firstName} ${item.lastName}`}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     )
@@ -45,16 +45,12 @@ class OpponentSearch extends React.Component{
   render(){
     const { potentialOpponents } = this.props
     return (
-      <View style={styles.mainContainer}>
-        <Text>OpponentSearch</Text>
         <FlatList
           data={potentialOpponents}
-          keyExtractor={this.keyExtractor}
-          renderItem={({item}) => this.userItemRenderer(item)
-          }
+          keyExtractor={item => `${item.id}`}
+          renderItem={({item}) => this.userItemRenderer(item)}
         >
         </FlatList>
-      </View>
     )
   }
 }

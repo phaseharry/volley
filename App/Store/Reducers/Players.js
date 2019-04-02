@@ -17,7 +17,8 @@ export const initialLoad = users => {
   }
 }
 
-const initialState = [] //represents an array of players
+const initialState = [] //represents an array of players 
+//want to change state into an object with 2 arrays (one is currently challenging, other is not challenging)
 
 //currently will store every player we have in state
 //will need to figure out a way to seperate players user is challenging versus everyone else
