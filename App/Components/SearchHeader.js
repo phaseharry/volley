@@ -3,9 +3,8 @@ import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 
-import { handleChange } from '../Store/Reducers/Search'
+import { handleChange, resetSearch } from '../Store/Reducers/Search'
 import { battleUser } from '../Store/Reducers/Players'
-import { resetSearch } from '../Store/Reducers/Search'
 import { randomUser } from '../Utility/utilityfncs'
 
 //need to make a random opponent generator

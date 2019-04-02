@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, StyleSheet, Dimensions } from 'react-native'
 
+import BackButton from '../Components/BackButton'
 import VolleyImg from '../Assets/volley.png'
 
 const styles = StyleSheet.create({
@@ -23,6 +24,7 @@ class BattleView extends React.Component{ //will add custom navigation back butt
   render(){
     return (
       <View style={styles.imgContainer}>
+        <BackButton navigation={this.props.navigation}/>
         <Image source={VolleyImg} style={styles.img}/>
       </View>
     )  
