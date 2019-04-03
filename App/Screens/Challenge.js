@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
 //has the ability to add a new match
 
 class Challenge extends React.Component{
-
   static navigationOptions = {
     headerTitle: <SearchHeader/>, 
     headerStyle: {

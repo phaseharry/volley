@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, TextInput, TouchableOpacity, Text } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 
@@ -7,17 +8,41 @@ import { handleChange, resetSearch } from '../Store/Reducers/Search'
 import { battleUser } from '../Store/Reducers/Players'
 import { randomUser } from '../Utility/utilityfncs'
 
-//need to make a random opponent generator
-//need to add an icon next to text input
+//potental icons: ios-flame ios-flash ios-nuclear ios-rocket
 
-//mayve navigate to the search view if the search has a value inside and pass this state down to that components search header
-//use the navigation prop to get the title for the header based on the screen?
-//food for thought
+const styles = StyleSheet.create({
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  searchContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  searchIcon:{
+    paddingLeft: 10,
+    paddingRight: 10,
+    color: '#3385ff'
+  },
+  input: {
+    backgroundColor: '#fff',
+    color: 'black',
+    width: Dimensions.get('window').width * 0.8
+  },
+  randomContainer: {
+    // flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center'
+  }
+
+})
+
 class SearchHeader extends React.Component{
 
   randomOpponentBattle = () => {
     const user = randomUser(this.props.players)
-    console.log(user)
     return this.challengeUser(user.id)       //returning it just incase this might be asynchronous in the future
   }
 
@@ -33,14 +58,24 @@ class SearchHeader extends React.Component{
     const { search, handleChange } = this.props
     return (
       <View>
-        <TextInput 
-          onChangeText={text => handleChange(text)} 
-          value={search} 
-          placeholder='Find a friend'
-          placeholderTextColor='gray'
-        />
+        <View style={styles.searchContainer}>
+          <Ionicons
+            size={30}
+            name='md-search'
+            style={styles.searchIcon}
+          />
+          <TextInput 
+            onChangeText={text => handleChange(text)} 
+            value={search} 
+            placeholder='Find a friend'
+            placeholderTextColor='gray'
+            style={styles.input}
+          />
+        </View>
         <TouchableOpacity onPress={this.randomOpponentBattle}>
-          <Text>Random Opponent</Text>
+          <View style={styles.randomContainer}>
+            <Text>Random Opponent</Text>
+          </View>
         </TouchableOpacity>
       </View>
     )
