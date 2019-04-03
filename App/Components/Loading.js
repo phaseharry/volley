@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Dimensions, StyleSheet, View } from 'react-native'
 
-import VolleyIMG from '../Assets/volleyword.png'
+import VolleyIMG from '../Assets/volley.png'
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   pic: {
     width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height * 0.5,
+    height: Dimensions.get('screen').height,
     alignSelf: 'center',
   }
 })

@@ -30,3 +30,7 @@ export const randomUser = users => {  //returns a random user based on users the
   const randomIdx = Math.floor(Math.random() * potentialOpponents.length)
   return potentialOpponents[randomIdx]
 }
+
+export const findUser = (userId, players) => {
+  return players.find(player => player.id === userId)
+}
