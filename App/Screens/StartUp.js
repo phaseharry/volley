@@ -17,7 +17,7 @@ class StartUp extends React.Component{
     this.props.loadChallenges(fakeData)  //loading our data into our redux store
     setTimeout(() => { //simulates a network request
       this.props.navigation.dispatch(removeStartUpFromStack)
-    }, 2000)
+    }, 3000)
   }
   
   render(){

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import BackButton from '../Components/BackButton'
 import Loading from '../Components/Loading'
-import VolleyImg from '../Assets/volley.png'
 
 import { findUser } from '../Utility/utilityfncs'
 
@@ -44,7 +43,7 @@ class BattleView extends React.Component{ //will add custom navigation back butt
       this.setState({
         loading: false
       })
-    }, 2000)
+    }, 3000)
   }
 
   render(){
@@ -66,7 +65,7 @@ class BattleView extends React.Component{ //will add custom navigation back butt
 const mapStateToProps = ({ players }, ownProps) => {
   const { navigation } = ownProps
   return {
-    opponent: findUser(navigation.getParam('userId'), players)
+    opponent: findUser(navigation.getParam('userId'), players) //filters out the user you're currently battling 
   }
 }
 
