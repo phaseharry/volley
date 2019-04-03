@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View, Text } from 'react-native'
 
-import { initialLoad, battleUser } from '../Store/Reducers/Players'
+import { battleUser } from '../Store/Reducers/Players'
 import { resetSearch } from '../Store/Reducers/Search'
-import fakeData from '../Utility/fakeData'
 
 import SearchHeader from '../Components/SearchHeader'
 import CurrenlyChallenging from '../Components/CurrentlyChallenging'
@@ -22,19 +21,13 @@ const styles = StyleSheet.create({
   }
 })
 
-//Shows a list of the users' current matches
-//has the ability to add a new match
-
 class Challenge extends React.Component{
   static navigationOptions = {
     headerTitle: <SearchHeader/>, 
     headerStyle: {
-      height: Dimensions.get('window').height * 0.14
-    }
-  }
-
-  componentDidMount(){
-    return this.props.loadChallenges(fakeData)  //loading our data into our redux store
+      height: Dimensions.get('window').height * 0.20
+    },
+    headerLeft: null //disables the back button
   }
 
   isSearching = () => this.props.search? true : false   //checks if there's user input in the search bar. If there is then render the opponent search component else we just show players they're currently challenging
@@ -50,6 +43,9 @@ class Challenge extends React.Component{
   render(){
     return (
       <View style={styles.mainContainer}>
+        <View>
+          <Text>{this.isSearching()? 'Opponents' : 'Friends'}</Text>
+        </View>
         {this.isSearching()? <OpponentSearch battleUser={this.challengeUser}/> : <CurrenlyChallenging battleUser={this.challengeUser}/>}
         <View style={styles.filler}></View>
       </View>
@@ -66,7 +62,6 @@ const mapStateToProps = ({ search }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadChallenges: users => dispatch(initialLoad(users)),
     battleUser: userId => dispatch(battleUser(userId)),
     resetSearch: () => dispatch(resetSearch())
   }

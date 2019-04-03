@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     height: 44,
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: ''
   },
   avatarIcon: {
     width: 40,
@@ -49,12 +48,12 @@ class CurrentlyChallenging extends React.Component{
   render(){
     const { challenging } = this.props
     return (
-        <FlatList
-          data={challenging}
-          keyExtractor={item => `${item.id}`}
-          renderItem={({item}) => this.userItemRenderer(item)}
-        >
-        </FlatList>
+          <FlatList
+            data={challenging}
+            keyExtractor={item => `${item.id}`}
+            renderItem={({item}) => this.userItemRenderer(item)}
+          >
+          </FlatList>
     )
   }
 }
