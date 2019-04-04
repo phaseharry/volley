@@ -5,6 +5,9 @@ import store from './App/Store'
 import Application from './App/Navigation/'
 
 export default class App extends React.Component{
+  componentDidMount(){
+    console.disableYellowBox = true
+  }
   render() {
     return (
       <Provider store={store}>
