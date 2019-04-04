@@ -13,4 +13,4 @@
 - Our state is managed by redux with a little help from react-redux to pass data into our Views and Components. 
   Currently, there is only an Auth reducer and a Players reducer with hardcoded data in and a Search reducer to handle user queries for opponents.
 - There's a utility folder that holds utility functions, styles folders that hold all of our small app's styling 
-- Project was mainly developed on a Motorola Moto G (3 Gen) and the styling might not be responsive to other resolutions
+- Project was mainly developed on a Motorola Moto G (3 Gen) and a iPhone 7, thus the styling might not be responsive to other resolutions
