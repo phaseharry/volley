@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, StyleSheet, Dimensions, Text } from 'react-native'
+import { View, Image, Text } from 'react-native'
 import { connect } from 'react-redux'
 
 import BackButton from '../Components/BackButton'
@@ -7,24 +7,8 @@ import Loading from '../Components/Loading'
 
 import { findUser } from '../Utility/utilityfncs'
 
-const height = Dimensions.get('window').height
-const width = Dimensions.get('window').width
+import styles from '../Styles/BattleViewStyles'
 
-const styles = StyleSheet.create({
-  imgContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#99ccff'
-  },
-  img: {
-    width: height * 0.5,
-    height: width * 0.5,
-    alignSelf: 'center'
-  },
-  textContainer: {
-    alignSelf: 'center'
-  }
-})
 
 class BattleView extends React.Component{ //will add custom navigation back button on top left corner
   constructor(props){
