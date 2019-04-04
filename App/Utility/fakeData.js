@@ -256,7 +256,7 @@ const users = [
     lastName: 'Haag',
     avatar:
     'https://s3.amazonaws.com/uifaces/faces/twitter/commadelimited/128.jpg',
-    challenging: false },
+    challenging: true },
   { id: 44,
     firstName: 'Ray',
     lastName: 'Predovic',
@@ -328,7 +328,7 @@ const users = [
     lastName: 'Harris',
     avatar:
     'https://s3.amazonaws.com/uifaces/faces/twitter/Talbi_ConSept/128.jpg',
-    challenging: false },
+    challenging: true },
   { id: 56,
     firstName: 'Lydia',
     lastName: 'MacGyver',
@@ -364,7 +364,7 @@ const users = [
     lastName: 'Wuckert',
     avatar:
     'https://s3.amazonaws.com/uifaces/faces/twitter/psdesignuk/128.jpg',
-    challenging: false },
+    challenging: true },
   { id: 62,
     firstName: 'Griffin',
     lastName: 'Gibson',

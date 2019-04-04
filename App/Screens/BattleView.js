@@ -7,6 +7,9 @@ import Loading from '../Components/Loading'
 
 import { findUser } from '../Utility/utilityfncs'
 
+const height = Dimensions.get('window').height
+const width = Dimensions.get('window').width
+
 const styles = StyleSheet.create({
   imgContainer: {
     flex: 1,
@@ -14,8 +17,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#99ccff'
   },
   img: {
-    width: Dimensions.get('window').width * 0.5,
-    height: Dimensions.get('window').height * 0.5,
+    width: height * 0.5,
+    height: width * 0.5,
     alignSelf: 'center'
   },
   textContainer: {
@@ -48,7 +51,7 @@ class BattleView extends React.Component{ //will add custom navigation back butt
 
   render(){
     const { opponent } = this.props
-    console.log(opponent)
+    // console.log(opponent)
     if(this.state.loading) return <Loading />
     return (
       <View style={styles.imgContainer}>

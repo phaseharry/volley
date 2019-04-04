@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Dimensions, StyleSheet, View, Text } from 'react-native'
+import { Dimensions, View } from 'react-native'
 
 import { battleUser } from '../Store/Reducers/Players'
 import { resetSearch } from '../Store/Reducers/Search'
@@ -9,17 +9,7 @@ import SearchHeader from '../Components/SearchHeader'
 import CurrenlyChallenging from '../Components/CurrentlyChallenging'
 import OpponentSearch from '../Components/OpponentSearch'
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    paddingTop: 3,
-  },
-  filler: {
-    // height: 100,
-    backgroundColor: 'skyblue'
-  }
-})
+import styles from '../Styles/ChallengeStyles'
 
 class Challenge extends React.Component{
   static navigationOptions = {
@@ -43,9 +33,6 @@ class Challenge extends React.Component{
   render(){
     return (
       <View style={styles.mainContainer}>
-        <View>
-          <Text>{this.isSearching()? 'Opponents' : 'Friends'}</Text>
-        </View>
         {this.isSearching()? <OpponentSearch battleUser={this.challengeUser}/> : <CurrenlyChallenging battleUser={this.challengeUser}/>}
         <View style={styles.filler}></View>
       </View>

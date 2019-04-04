@@ -1,30 +1,11 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, SectionList } from 'react-native'
 import { connect } from 'react-redux'
 
 import { sortAlphabetically, userSearch } from '../Utility/utilityfncs'
 
-const styles = StyleSheet.create({
-  userItem: {
-    padding: 10,
-    height: 44,
-    flex: 1,
-    flexDirection: 'row',
-    // justifyContent: ''
-  },
-  avatarIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 40/2,
-  },
-  textContainer: {
-    paddingLeft: 10,
-    paddingTop: 7
-  },
-  textStyle: {
-    fontSize: 15
-  }
-})
+import styles from '../Styles/UserListStyles'
+
 
 class OpponentSearch extends React.Component{
 
@@ -42,15 +23,27 @@ class OpponentSearch extends React.Component{
     )
   }
 
+  renderHeader = title => {
+    return (
+      <View style={styles.textContainer}>
+        <Text style={styles.sectionText}>{title}</Text>
+      </View>
+    )
+  }
+
   render(){
     const { potentialOpponents } = this.props
     return (
-        <FlatList
-          data={potentialOpponents}
+        <SectionList
+          sections={[
+            { title: 'Opponents',
+              data: potentialOpponents
+            }
+          ]}
+          renderSectionHeader={({ section }) => this.renderHeader(section.title)}
+          renderItem={({item}) => this.userItemRenderer(item)} 
           keyExtractor={item => `${item.id}`}
-          renderItem={({item}) => this.userItemRenderer(item)}
-        >
-        </FlatList>
+        />  
     )
   }
 }

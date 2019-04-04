@@ -1,33 +1,11 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, SectionList, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import { sortAlphabetically, sortChallenges } from '../Utility/utilityfncs'
 
-//Shows a list of the users' current matches
-//has the ability to add a new match
+import styles from '../Styles/UserListStyles'
 
-//styles
-const styles = StyleSheet.create({
-  userItem: {
-    padding: 10,
-    height: 44,
-    flex: 1,
-    flexDirection: 'row',
-  },
-  avatarIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 40/2,
-  },
-  textContainer: {
-    paddingLeft: 10,
-    paddingTop: 7
-  },
-  textStyle: {
-    fontSize: 15
-  }
-})
 
 class CurrentlyChallenging extends React.Component{
 
@@ -45,15 +23,27 @@ class CurrentlyChallenging extends React.Component{
     )
   }
 
+  renderHeader = title => {
+    return (
+      <View style={styles.textContainer}>
+        <Text style={styles.sectionText}>{title}</Text>
+      </View>
+    )
+  }
+
   render(){
     const { challenging } = this.props
     return (
-          <FlatList
-            data={challenging}
-            keyExtractor={item => `${item.id}`}
-            renderItem={({item}) => this.userItemRenderer(item)}
-          >
-          </FlatList>
+      <SectionList
+        sections={[
+          { title: 'Friends',
+            data: challenging
+          }
+        ]}
+        renderSectionHeader={({ section }) => this.renderHeader(section.title)}
+        renderItem={({item}) => this.userItemRenderer(item)} 
+        keyExtractor={item => `${item.id}`}
+      />  
     )
   }
 }

@@ -1,10 +1,24 @@
+/*
 export const userSearch = (searchStr, users) => { //used to filter out users based on search argument
   const searchQuery = new RegExp(searchStr, 'i') //create regular expression, ignoring the casing 
   return users.filter(player => {               
-    if(searchQuery.test(player.firstName) /*|| searchQuery.test(player.lastName)*/){   //will only sort filter by first name for now
+    if(searchQuery.test(player.firstName) /){   //will only sort filter by first name for now
       return true 
     } else {
       return false
+    }
+  })
+}
+*/
+//position of the query didn't matter in the filter function above
+
+export const userSearch = (searchStr, users) => {
+  const searchLowerCase = searchStr.toLowerCase()
+  return users.filter(player => {
+    const firstName = player.firstName
+    const lastName = player.lastName
+    if(firstName.toLowerCase().indexOf(searchLowerCase) === 0 || lastName.toLowerCase().indexOf(searchLowerCase) === 0){
+      return true
     }
   })
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 
@@ -8,53 +8,9 @@ import { handleChange, resetSearch } from '../Store/Reducers/Search'
 import { battleUser } from '../Store/Reducers/Players'
 import { randomUser } from '../Utility/utilityfncs'
 
-//potental icons: ios-flame ios-flash ios-nuclear ios-rocket
+import styles from '../Styles/SearchStyles'
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    flex: 1,
-  }, 
-  searchBackground: {
-    height: 80,
-    backgroundColor: '#4da6ff',
-    justifyContent: 'center',
-    paddingHorizontal: 5
-  },  
-  searchContainer: {
-    height: 50,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    padding: 5 ,
-    borderRadius: 10
-  },
-  searchIcon:{
-    paddingTop: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    color: '#3385ff'
-  },
-  input: {
-    backgroundColor: '#fff',
-    color: 'black',
-    width: Dimensions.get('window').width * 0.8,
-  },
-  randomContainer: {
-    flex: 1,
-    backgroundColor: 'skyblue',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  battleIcon: {
-    paddingLeft: 20,
-    paddingRight: 15,
-    color: 'yellow'
-  },
-  randomText: {
-    fontSize: 13,
-    fontWeight: 'bold'
-  }
-})
+//potental icons: ios-flame ios-flash ios-nuclear ios-rocket
 
 class SearchHeader extends React.Component{
 
